@@ -1,62 +1,111 @@
 #include "stdafx.h"
 #include "Employee.h"
+#include <cstring>
+#include <iostream>
+#include <iomanip>
+using std::cout;
+using std::endl;
+using std::setw;
+using std::ostream;
+using std::istream;
 
+
+
+void Employee::setEmployee(const char * name, const char * surname, const int age, const char * department, const char * position, const int yearsWorked, const double salary)
+{
+	this->name = new char[strlen(name) + 1];
+	strcpy_s(this->name, strlen(name) + 1, name);
+
+	this->surname = new char[strlen(surname) + 1];
+	strcpy_s(this->surname, strlen(surname) + 1, surname);
+
+	this->age = age;
+
+	this->department = new char[strlen(department) + 1];
+	strcpy_s(this->department, strlen(department) + 1, department);
+
+	this->position = new char[strlen(position) + 1];
+	strcpy_s(this->position, strlen(position) + 1, position);
+
+	this->yearsWorked = yearsWorked;
+	this->salary = salary;
+}
 
 Employee::Employee()
 {
+	age = yearsWorked = 0;
+	salary = 0;
+	name = "";
+	surname = "";		
+	department = "";
+	position = "";
 }
 
 Employee::Employee(const char * name, const char * surname, const int age)
 {
+	this->name = new char[strlen(name) + 1];
+	strcpy_s(this->name, strlen(name) + 1, name);
+
+	this->surname = new char[strlen(surname) + 1];
+	strcpy_s(this->surname, strlen(surname) + 1, surname);
+
+	this->age = age;
+
 }
 
 Employee::Employee(const char * name, const char * surname, const int age,
 	const char * department, const char * position, const int yearsWorked, const double salary)
 {
+	setEmployee(name, surname, age, department, position, yearsWorked, salary);
 }
 
-Employee::Employee(const Employee &)
+Employee::Employee(const Employee& e)
 {
+	setEmployee(e.name, e.surname, e.age, e.department, e.position, e.yearsWorked, e.salary);
 }
 
 
 Employee::~Employee()
 {
+	delete[] name;
+	delete[] surname;
+	delete[] department;
+	delete[] position;
 }
 
 const char * Employee::getname() const
 {
-	return nullptr;
+	return name;
 }
 
 const char * Employee::getsurname() const
 {
-	return nullptr;
+	return surname;
 }
 
 const int Employee::getage() const
 {
-	return 0;
+	return age;
 }
 
 const char * Employee::getdepartment() const
 {
-	return nullptr;
+	return department;
 }
 
 const char * Employee::getposition() const
 {
-	return nullptr;
+	return position;
 }
 
 const int Employee::getyearsWorked() const
 {
-	return 0;
+	return yearsWorked;
 }
 
 const double Employee::getsalary() const
 {
-	return 0.0;
+	return salary;
 }
 
 void Employee::setname(const char * name)

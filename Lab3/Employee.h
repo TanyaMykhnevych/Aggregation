@@ -11,6 +11,9 @@ private:
 	int yearsWorked;
 	double salary;
 
+	void setEmployee(const char* name, const char* surname, const int age, const char* department,
+		const char* position, const int yearsWorked, const double salary);
+
 public:
 	Employee();
 	Employee(const char* name, const char* surname, const int age);

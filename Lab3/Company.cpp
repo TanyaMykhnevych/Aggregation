@@ -25,27 +25,27 @@ Company::~Company()
 
 const char * Company::getname() const
 {
-	return nullptr;
+	return name;
 }
 
 const char * Company::getcountry() const
 {
-	return nullptr;
+	return country;
 }
 
 const int Company::getcreationYear() const
 {
-	return 0;
+	return creationYear;
 }
 
 const int Company::getempNumber() const
 {
-	return 0;
+	return empNumber;
 }
 
 const Employee * Company::getemployees() const
 {
-	return nullptr;
+	return employees;
 }
 
 void Company::setname(const char * name)

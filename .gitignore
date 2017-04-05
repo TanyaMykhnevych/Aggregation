@@ -31,3 +31,8 @@
 
 *.db
 *.opendb
+*.tlog
+*.idb
+*.pdb
+*.ipch
+*.log

@@ -138,10 +138,15 @@ void Employee::setsalary(const double salary)
 
 void Employee::increaseSalary(double difference)
 {
+	salary += difference;
 }
 
 void Employee::decreaseSalary(double difference)
 {
+	if (difference > salary) {
+		salary = 0;
+	}
+	salary -= difference;
 }
 
 void Employee::changeDepartment(char * newDepartment)
@@ -157,32 +162,44 @@ const Employee & Employee::operator=(const Employee &)
 	// TODO: insert return statement here
 }
 
-bool Employee::operator==(const Employee &) const
+bool Employee::operator==(const Employee& e) const
 {
-	return false;
+	return (strcmp(name, e.name) == 0)
+		&& (strcmp(surname, e.surname) == 0)
+		&& (strcmp(department, e.department) == 0)
+		&& (strcmp(position, e.position) == 0)
+		&& (age == e.age)
+		&& (yearsWorked == e.yearsWorked)
+		&& (salary == e.salary);
 }
 
-bool Employee::operator!=(const Employee &) const
+bool Employee::operator!=(const Employee& e) const
 {
-	return false;
+	return !((strcmp(name, e.name) == 0)
+		&& (strcmp(surname, e.surname) == 0)
+		&& (strcmp(department, e.department) == 0)
+		&& (strcmp(position, e.position) == 0)
+		&& (age == e.age)
+		&& (yearsWorked == e.yearsWorked)
+		&& (salary == e.salary));
 }
 
-bool Employee::operator<(const Employee &) const
+bool Employee::operator<(const Employee& e) const
 {
-	return false;
+	return salary < e.salary;
 }
 
-bool Employee::operator<=(const Employee &) const
+bool Employee::operator<=(const Employee& e) const
 {
-	return false;
+	return salary <= e.salary;
 }
 
-bool Employee::operator>(const Employee &) const
+bool Employee::operator>(const Employee& e) const
 {
-	return false;
+	return salary > e.salary;
 }
 
-bool Employee::operator>=(const Employee &) const
+bool Employee::operator>=(const Employee& e) const
 {
-	return false;
+	return salary >= e.salary;
 }

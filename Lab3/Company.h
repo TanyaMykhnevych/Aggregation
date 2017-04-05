@@ -38,7 +38,7 @@ public:
 	const Company& operator=(const Company&);
 
 	bool operator==(const Company&) const;
-	bool operator!=(const Employee&) const;
+	bool operator!=(const Company&) const;
 
 	bool operator<(const Company&) const;
 	bool operator<=(const Company&) const;

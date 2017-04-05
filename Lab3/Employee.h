@@ -5,10 +5,10 @@ private:
 	int id;
 	char* name;
 	char* surname;
-	int age;
+	unsigned int age;
 	char* department;
 	char* position;
-	int yearsWorked;
+	unsigned int yearsWorked;
 	double salary;
 
 	void setEmployee(const char* name, const char* surname, const int age, const char* department,

@@ -43,13 +43,7 @@ Employee::Employee()
 
 Employee::Employee(const char * name, const char * surname, const int age)
 {
-	this->name = new char[strlen(name) + 1];
-	strcpy_s(this->name, strlen(name) + 1, name);
-
-	this->surname = new char[strlen(surname) + 1];
-	strcpy_s(this->surname, strlen(surname) + 1, surname);
-
-	this->age = age;
+	setEmployee(name, surname, age, "", "", 0, 0);
 
 }
 
@@ -202,4 +196,17 @@ bool Employee::operator>(const Employee& e) const
 bool Employee::operator>=(const Employee& e) const
 {
 	return salary >= e.salary;
+}
+
+ostream & operator<<(ostream & os, Employee & e)
+{	
+	cout << "Name: " << e.getname() << "\n"		
+		<< "Surname: " << e.getsurname() << "\n"
+		<< "Age: "<< e.getage() << "\n"
+		<< "Position: " << e.getposition() << "\n"
+		<< "Department: "<< e.getdepartment() << "\n"
+		<< "YearsWorked: " << e.getyearsWorked() << "\n"
+		<< "Salary: " << e.getsalary() << endl;
+
+	return os;
 }

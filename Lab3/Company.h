@@ -1,4 +1,13 @@
 #include "Employee.h"
+#include <cstring>
+#include <iostream>
+#include <iomanip>
+using std::cout;
+using std::endl;
+using std::setw;
+using std::ostream;
+using std::istream;
+
 
 #pragma once
 class Company
@@ -9,6 +18,9 @@ private:
 	int creationYear;
 	int empNumber;
 	Employee* employees;
+	int maxId = 0;
+
+	void setCompany(const char* name, const char* country, const int creationYear, const int empNumber, const Employee* employees);
 
 public:
 	Company();
@@ -45,8 +57,7 @@ public:
 	bool operator>(const Company&) const;
 	bool operator>=(const Company&) const;
 
-	const char& operator[](int)const;   // right value
-	char& operator[](int);// left value
+	friend ostream& operator<<(ostream& os, Company& ñ);
 
 
 };

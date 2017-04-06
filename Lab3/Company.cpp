@@ -11,26 +11,7 @@ using std::istream;
 
 
 
-Company::Company()
-{
-	name = "";
-	country = "";
-	creationYear = empNumber = 0;
-	employees = new Employee[0];
-}
-
-Company::Company(const char * name, const char * country, const int creationYear)
-{
-	this->name = new char[strlen(name) + 1];
-	strcpy_s(this->name, strlen(name) + 1, name);
-
-	this->country = new char[strlen(country) + 1];
-	strcpy_s(this->country, strlen(country) + 1, country);
-
-	this->creationYear = creationYear;
-}
-
-Company::Company(const char * name, const char * country, const int creationYear, const int empNumber, const Employee * employees)
+void Company::setCompany(const char * name, const char * country, const int creationYear, const int empNumber, const Employee * employees)
 {
 	this->name = new char[strlen(name) + 1];
 	strcpy_s(this->name, strlen(name) + 1, name);
@@ -45,20 +26,28 @@ Company::Company(const char * name, const char * country, const int creationYear
 	//this->employees = 
 }
 
+Company::Company()
+{
+	name = "";
+	country = "";
+	creationYear = empNumber = 0;
+	employees = new Employee[0];
+}
+
+Company::Company(const char * name, const char * country, const int creationYear)
+{
+	setCompany(name, country, creationYear, 0, NULL);
+}
+
+Company::Company(const char * name, const char * country, const int creationYear, const int empNumber, const Employee * employees)
+{
+	setCompany(name, country, creationYear, creationYear, employees);
+}
+
 
 Company::Company(const Company& c)
 {
-	this->name = new char[strlen(c.name) + 1];
-	strcpy_s(this->name, strlen(c.name) + 1, c.name);
-
-	this->country = new char[strlen(c.country) + 1];
-	strcpy_s(this->country, strlen(c.country) + 1, c.country);
-
-	this->creationYear = c.creationYear;
-	this->empNumber = c.empNumber;
-
-	//сделать, как в лекции
-	//this->employees = 
+	setCompany(c.name, c.country, c.creationYear, c.creationYear, c.employees);
 }
 
 Company::~Company()
@@ -103,6 +92,7 @@ void Company::setcountry(const char * country)
 
 void Company::setcreationYear(const int creationYear)
 {
+	
 }
 
 void Company::setemployees(const Employee * employees)
@@ -164,12 +154,14 @@ bool Company::operator>=(const Company& c) const
 	return empNumber >= c.empNumber;
 }
 
-const char & Company::operator[](int) const
+ostream & operator<<(ostream & os, Company & c)
 {
-	// TODO: insert return statement here
-}
+	cout << "Name: " << c.getname() << "\n"
+		<< "Country: " << c.getcountry() << "\n"
+		<< "CreationYear: " << c.getcreationYear() << "\n"
+		<< "EmployeesNumber: " << c.getempNumber() << endl;
 
-char & Company::operator[](int)
-{
-	// TODO: insert return statement here
+	//тут еще надо вывести список работников, наверное
+
+	return os;
 }

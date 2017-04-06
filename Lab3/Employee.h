@@ -1,3 +1,12 @@
+#include <cstring>
+#include <iostream>
+#include <iomanip>
+using std::cout;
+using std::endl;
+using std::setw;
+using std::ostream;
+using std::istream;
+
 #pragma once
 class Employee
 {
@@ -54,6 +63,7 @@ public:
 	bool operator>(const Employee&) const;
 	bool operator>=(const Employee&) const;	
 
-	
+	friend ostream& operator<<(ostream& os, Employee& e);
+
 };
 

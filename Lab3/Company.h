@@ -18,7 +18,6 @@ private:
 	int creationYear;
 	int empNumber;
 	Employee* employees;
-	int maxId = 0;
 
 	void setCompany(const char* name, const char* country, const int creationYear, const int empNumber, const Employee* employees);
 
@@ -40,8 +39,9 @@ public:
 	void setcreationYear(const int creationYear);
 	void setemployees(const Employee* employees);
 
-	void addEnployee(Employee& e);
-	void editEmployee(int id, Employee& e);
+	bool checkIfContainsEmployee(Employee& e);
+	Employee& findEmployee(int id);
+	void addEmployee(Employee& e);
 	void removeEmployee(int id);
 	void sortEmpsBySurname();
 	void sortEmpsBySalary();
@@ -59,6 +59,7 @@ public:
 
 	friend ostream& operator<<(ostream& os, Company& ñ);
 
-
+	const Employee& Company::operator[](int i)  const;
+	Employee& Company::operator[](int i);
 };
 

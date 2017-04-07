@@ -11,7 +11,7 @@ using std::istream;
 class Employee
 {
 private:	
-	int id; // надо сделать статик, но почему-то не получается, исправить
+	int id; 
 	char* name;
 	char* surname;
 	unsigned int age;
@@ -19,7 +19,7 @@ private:
 	char* position;
 	unsigned int yearsWorked;
 	double salary;
-	int maxId;  // надо сделать статик, но почему-то не получается, исправить
+	static int maxId;  // надо сделать статик, но почему-то не получается, исправить
 
 	void setEmployee(const char* name, const char* surname, const int age, const char* department,
 		const char* position, const int yearsWorked, const double salary);

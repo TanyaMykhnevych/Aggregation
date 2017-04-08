@@ -40,7 +40,7 @@ public:
 	void setemployees(const Employee* employees);
 
 	bool checkIfContainsEmployee(Employee& e);
-	Employee& findEmployee(int id);
+	Employee& getEmployee(int id);
 	void addEmployee(Employee& e);
 	void removeEmployee(int id);
 	void sortEmpsBySurname();

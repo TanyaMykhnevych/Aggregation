@@ -118,13 +118,21 @@ void Company::setemployees(const Employee * employees)
 //доделать
 bool Company::checkIfContainsEmployee(Employee & e)
 {
+	for (int i = 0; i < empNumber; i++) {
+		if (employees[i] == e)
+			return true;
+	}
 	return false;
 }
 
 //доделать
-Employee & Company::findEmployee(int id)
+Employee & Company::getEmployee(int id)
 {
-	// TODO: insert return statement here
+	for (int i = 0; i < empNumber; i++) {
+		if (employees[i].getid() == id)
+			return employees[i];
+	}
+	return;
 }
 
 //доделать

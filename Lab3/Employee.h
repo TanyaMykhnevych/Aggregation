@@ -32,6 +32,7 @@ public:
 	Employee(const Employee&);//copy constr
 	~Employee();
 
+	const int getid() const;
 	const char* getname() const;  // getter
 	const char* getsurname() const;  // getter
 	const int getage() const;  // getter

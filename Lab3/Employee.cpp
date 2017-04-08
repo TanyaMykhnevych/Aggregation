@@ -70,6 +70,11 @@ Employee::~Employee()
 	maxId--;
 }
 
+const int Employee::getid() const
+{
+	return id;
+}
+
 const char * Employee::getname() const
 {
 	return name;

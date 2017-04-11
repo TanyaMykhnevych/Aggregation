@@ -222,19 +222,17 @@ const Employee & Employee::operator=(const Employee& e)
 		strcpy_s(dep, strlen(e.department) + 1, e.department);
 		strcpy_s(pos, strlen(e.position) + 1, e.position);
 
-		delete[] name;
-		delete[] surname;
-		delete[] department;
-		delete[] position;
+		if(this->name != "")
+			delete[] this->name;
+		if (this->surname != "")
+			delete[] this->surname;
+		if (this->department != "")
+			delete[] this->department;
+		if (this->position != "")
+			delete[] this->position;
 
-		name = nam;
-		surname = sur;
-		age = e.age;
-		department = dep;
-		position = pos;
-		yearsWorked = e.yearsWorked;
-		salary = e.salary;
-
+		setEmployee(nam, sur, e.age, dep, pos, e.yearsWorked, e.salary);
+		
 		return *this;
 	}
 	else cout << "Avoid copying to itself" << endl;

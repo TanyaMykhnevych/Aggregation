@@ -37,12 +37,12 @@ public:
 	void setname(const char* name); //setter
 	void setcountry(const char* country);
 	void setcreationYear(const int creationYear);
-	void setemployees(const Employee* employees);
+	void setemployees(const int empsNum, const Employee * employees);
 
 	bool checkIfContainsEmployee(Employee& e);
 	Employee& getEmployee(int id);
-	void addEmployee(Employee& e);
-	void removeEmployee(int id);
+	bool addEmployee(Employee& e);
+	bool removeEmployee(int index);
 	void sortEmpsBySurname();
 	void sortEmpsBySalary();
 

@@ -1,5 +1,5 @@
 #include "Employee.h"
-#include <cstring>
+#include "cstring"
 #include <iostream>
 #include <iomanip>
 using std::cout;
@@ -13,8 +13,8 @@ using std::istream;
 class Company
 {
 private:
-	char *name;
-	char *country;
+	char* name;
+	char* country;
 	int creationYear;
 	int empNumber;
 	Employee* employees;
@@ -23,29 +23,39 @@ private:
 
 public:
 	Company();
-	Company(const char* name, const char* country, const int creationYear);
-	Company(const char* name, const char* country, const int creationYear, const int empNumber, const Employee* employees);
+	Company(const char* name,
+	        const char* country,
+	        const int creationYear);
+	Company(const char* name,
+	        const char* country,
+	        const int creationYear,
+	        const int empNumber,
+	        const Employee* employees);
 	Company(const Company& c);
 	~Company();
 
-	const char* getname() const;
-	const char* getcountry() const;
-	const int getcreationYear() const;
-	const int getempNumber() const;
-	const Employee* getemployees() const;
+	const char* getName() const;
+	void setName(const char* name);
 
-	void setname(const char* name); //setter
-	void setcountry(const char* country);
-	void setcreationYear(const int creationYear);
-	void setemployees(const int empsNum, const Employee * employees);
+	const char* getCountry() const;
+	void setCountry(const char* country);
 
-	bool checkIfContainsEmployee(Employee& e);
-	Employee& getEmployee(int id);
-	bool addEmployee(Employee& e);
-	bool removeEmployee(int index);
-	void sortEmpsBySurname();
-	void sortEmpsBySalary();
+	int getCreationYear() const;
+	void setCreationYear(const int creationYear);
 
+	int getEmployeeNumber() const;
+
+	const Employee* getEmployees() const;
+	void setEmployees(const int empsNum, const Employee* employees);
+
+	bool checkIfContainsEmployee(const Employee& e) const;
+	bool checkIfContainsEmployeeId(const int e) const;
+	bool Company::getEmployee(const int empId, Employee& emp) const;
+	bool addEmployee(const Employee& e);
+	bool removeEmployeeByIndex(const int index);
+	bool removeEmployeeById(const int id);
+	void sortEmpsBySurname() const;
+	void sortEmpsBySalary() const;
 
 	const Company& operator=(const Company&);
 
@@ -59,7 +69,6 @@ public:
 
 	friend ostream& operator<<(ostream& os, Company& ñ);
 
-	const Employee& Company::operator[](int i)  const;
+	const Employee& Company::operator[](int i) const;
 	Employee& Company::operator[](int i);
 };
-

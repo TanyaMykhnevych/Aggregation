@@ -10,21 +10,27 @@ using std::ostream;
 using std::istream;
 
 
-
-void Company::setCompany(const char * name, const char * country, const int creationYear, const int empNumber, const Employee * employees)
+void Company::setCompany(const char* name,
+                         const char* country,
+                         const int creationYear,
+                         const int empCount,
+                         const Employee* employees)
 {
+	delete[] this->name;
 	this->name = new char[strlen(name) + 1];
 	strcpy_s(this->name, strlen(name) + 1, name);
 
+	delete[] this->country;
 	this->country = new char[strlen(country) + 1];
 	strcpy_s(this->country, strlen(country) + 1, country);
 
 	this->creationYear = creationYear;
-	this->empNumber = empNumber;
+	this->empNumber = empCount;
 
-
-	this->employees = new Employee[empNumber];
-	for (int i = 0; i < empNumber; i++) {
+	delete[] this->employees;
+	this->employees = new Employee[empCount];
+	for (int i = 0; i < empCount; i++)
+	{
 		this->employees[i] = employees[i];
 	}
 }
@@ -37,20 +43,25 @@ Company::Company()
 	employees = new Employee[0];
 }
 
-Company::Company(const char * name, const char * country, const int creationYear)
+Company::Company(const char* name,
+                 const char* country,
+                 const int creationYear)
 {
-	setCompany(name, country, creationYear, 0, NULL);
+	setCompany(name, country, creationYear, 0, nullptr);
 }
 
-Company::Company(const char * name, const char * country, const int creationYear, const int empNumber, const Employee * employees)
+Company::Company(const char* name,
+                 const char* country,
+                 const int creationYear,
+                 const int empNumber,
+                 const Employee* employees)
 {
 	setCompany(name, country, creationYear, empNumber, employees);
 }
 
-
 Company::Company(const Company& c)
 {
-	setCompany(c.name, c.country, c.creationYear, c.creationYear, c.employees);
+	setCompany(c.name, c.country, c.creationYear, c.empNumber, c.employees);
 }
 
 Company::~Company()
@@ -60,218 +71,293 @@ Company::~Company()
 	delete[] employees;
 }
 
-const char * Company::getname() const
+const char* Company::getName() const
 {
 	return name;
 }
 
-const char * Company::getcountry() const
+void Company::setName(const char* name)
+{
+	delete[] this->name;
+
+	this->name = new char[strlen(name) + 1];
+	strcpy_s(this->name, strlen(name) + 1, name);
+}
+
+const char* Company::getCountry() const
 {
 	return country;
 }
 
-const int Company::getcreationYear() const
+void Company::setCountry(const char* country)
+{
+	delete[] this->country;
+
+	this->country = new char[strlen(country) + 1];
+	strcpy_s(this->country, strlen(country) + 1, country);
+}
+
+int Company::getCreationYear() const
 {
 	return creationYear;
 }
 
-const int Company::getempNumber() const
+void Company::setCreationYear(const int year)
 {
-	return empNumber;
-}
-
-const Employee * Company::getemployees() const
-{
-	return employees;
-}
-
-void Company::setname(const char * nam)
-{
-	char* temp;
-	temp = new char[strlen(nam) + 1];
-	strcpy_s(temp, strlen(nam) + 1, nam);
-	delete[] name;
-	name = temp;
-}
-
-void Company::setcountry(const char * countr)
-{
-	char* temp;
-	temp = new char[strlen(countr) + 1];
-	strcpy_s(temp, strlen(countr) + 1, countr);
-	delete[] country;
-	country = temp;
-}
-
-void Company::setcreationYear(const int year)
-{
-	if (year > 1700 && year < 2017) {
+	if (year > 1700 && year <= 2017)
+	{
 		this->creationYear = year;
 	}
-	else {
+	else
+	{
 		cout << "Invalid value creationYear\n" << endl;
 	}
 }
 
-
-void Company::setemployees(const int empsNum, const Employee * employees)
+int Company::getEmployeeNumber() const
 {
-	empNumber = empsNum;
+	return empNumber;
+}
+
+const Employee* Company::getEmployees() const
+{
+	return employees;
+}
+
+void Company::setEmployees(const int empsCount, const Employee* newEmps)
+{
+	empNumber = empsCount;
+
+	delete[] this->employees;
 	this->employees = new Employee[empNumber];
-	for (int i = 0; i < empNumber; i++) {
-		this->employees[i] = employees[i];
+
+	for (int i = 0; i < empNumber; i++)
+	{
+		this->employees[i] = newEmps[i];
 	}
 }
 
-
-bool Company::checkIfContainsEmployee(Employee & e)
+bool Company::checkIfContainsEmployee(const Employee& e) const
 {
-	for (int i = 0; i < empNumber; i++) {
+	for (int i = 0; i < empNumber; i++)
+	{
 		if (employees[i] == e)
 			return true;
 	}
+
+	return false;
+}
+
+bool Company::checkIfContainsEmployeeId(const int empId) const
+{
+	for (int i = 0; i < empNumber; i++)
+	{
+		if (employees[i].getId() == empId)
+			return true;
+	}
+
 	return false;
 }
 
 
-Employee & Company::getEmployee(int id)
+bool Company::getEmployee(const int empId, Employee& emp) const
 {
-	for (int i = 0; i < empNumber; i++) {
-		if (employees[i].getid() == id)
-			return employees[i];
+	for (int i = 0; i < empNumber; i++)
+	{
+		if (employees[i].getId() == empId)
+		{
+			emp = employees[i];
+			return true;
+		}
 	}
-	return Employee();
+
+	return false;
 }
 
 
-bool Company::addEmployee(Employee & e)
+bool Company::addEmployee(const Employee& e)
 {
-	bool added = false;
-	Employee *newArray = new Employee[++empNumber];
+	Employee* newArray = new Employee[++empNumber];
 
 	for (int i = 0; i < empNumber - 1; i++)
-	{		
+	{
 		newArray[i] = employees[i];
 	}
 
 	newArray[empNumber - 1] = e;
-	added = true;
 
-	if (!added) {
-		return false;
-	}
-	delete[] employees;
-	employees = newArray;
+	delete[] this->employees;
+	this->employees = newArray;
+
 	return true;
 }
 
+bool Company::removeEmployeeByIndex(const int index)
+{
+	if (index >= empNumber || index < 0)
+	{
+		return false;
+	}
 
-
-bool Company::removeEmployee(const int index)
-{		
-	bool deleted = false;
-	Employee *newArray = new Employee[empNumber - 1];
+	Employee* newArray = new Employee[empNumber - 1];
 
 	for (int i = 0; i < empNumber - 1; i++)
 	{
-		if (i == index) {
-			deleted = true;
-		}
-		newArray[i] = deleted ? employees[i + 1] : employees[i];
+		newArray[i] = i >= index ? employees[i + 1] : employees[i];
 	}
-	if (!deleted) {
-		return false;
-	}
+
 	delete[] employees;
 	employees = newArray;
 	this->empNumber--;
 	return true;
 }
 
-//для Боречки)
-void Company::sortEmpsBySurname()
+bool Company::removeEmployeeById(const int id)
 {
+	bool deleted = false;
+	Employee* newArray = new Employee[empNumber - 1];
+
+	for (int i = 0; i < empNumber - 1; i++)
+	{
+		if (employees[i].getId() == id)
+		{
+			deleted = true;
+		}
+
+		newArray[i] = deleted ? employees[i + 1] : employees[i];
+	}
+
+	if (!deleted)
+	{
+		delete[] newArray;
+		return false;
+	}
+
+	delete[] employees;
+	employees = newArray;
+	empNumber--;
+	return true;
 }
 
-//для Боречки)
-void Company::sortEmpsBySalary()
+void Company::sortEmpsBySurname() const
 {
+	for (int i = 0; i < empNumber - 1; i++)
+	{
+		for (int j = i + 1; j < empNumber; j++)
+		{
+			int result = strcmp(employees[i].getSurname(), employees[j].getSurname());
+
+			if (result > 0)
+			{
+				Employee& tempEmp = employees[i];
+				employees[i] = employees[j];
+				employees[j] = tempEmp;
+
+				i = -1;
+				break;
+			}
+		}
+	}
+}
+
+void Company::sortEmpsBySalary() const
+{
+	for (int i = 0; i < empNumber - 1; i++)
+	{
+		for (int j = i + 1; j < empNumber; j++)
+		{
+			if (employees[i].getSalary() > employees[j].getSalary())
+			{
+				Employee& tempEmp = employees[i];
+				employees[i] = employees[j];
+				employees[j] = tempEmp;
+
+				i = -1;
+				break;
+			}
+		}
+	}
 }
 
 
-const Company & Company::operator=(const Company &c)
+const Company& Company::operator=(const Company& c)
 {
-	char* nam; char* countr;
-	Employee *e;
-	if (this != &c) {
-		nam = new char[strlen(c.name) + 1];
-		countr = new char[strlen(c.country) + 1];
+	char* name;
+	char* country;
+	Employee* e;
 
-		strcpy_s(nam, strlen(c.name) + 1, c.name);
-		strcpy_s(countr, strlen(c.country) + 1, c.country);
+	if (this != &c)
+	{
+		name = new char[strlen(c.name) + 1];
+		country = new char[strlen(c.country) + 1];
+
+		strcpy_s(name, strlen(c.name) + 1, c.name);
+		strcpy_s(country, strlen(c.country) + 1, c.country);
 
 		e = new Employee[c.empNumber];
-		for (int i = 0; i < empNumber; i++) {
+		for (int i = 0; i < empNumber; i++)
+		{
 			e[i] = c.employees[i];
 		}
 
+		setCompany(name, country, c.creationYear, c.empNumber, e);
+
 		delete[] name;
 		delete[] country;
-		delete[] employees;
-
-		setCompany(nam, countr, c.creationYear, c.empNumber, e);
-
-		return *this;
+		delete[] e;
 	}
-	else cout << "Avoid copying to itself" << endl;
+	else
+	{
+		cout << "Avoid copying to itself" << endl;
+	}
+
 	return *this;
 }
 
 
 bool Company::operator==(const Company& c) const
 {
-	bool firstPart = (strcmp(name, c.name) == 0)
-		&& (strcmp(country, c.country) == 0)
+	bool equalsWithoutEmps = strcmp(name, c.name) == 0
+		&& strcmp(country, c.country) == 0
 		&& creationYear == c.creationYear
 		&& empNumber == c.empNumber;
 
-	if (!firstPart)
+	if (!equalsWithoutEmps)
 		return false;
 
-	bool secondPart = false;
-
-	for (int i = 0; i < empNumber; i++) {
-		if (employees[i] == c.employees[i]) {
-			secondPart = true;
-		}
-		else {
+	for (int i = 0; i < empNumber; i++)
+	{
+		if (employees[i] != c.employees[i])
+		{
 			return false;
 		}
 	}
 
-	if (firstPart&&secondPart)
-		return true;
-	return false;
+	return true;
 }
 
 
 bool Company::operator!=(const Company& c) const
 {
-	bool firstPart = !((strcmp(name, c.name) == 0)
-		&& (strcmp(country, c.country) == 0)
-		&& creationYear == c.creationYear
-		&& empNumber == c.empNumber);
+	return !(*this == c);
 
-	if (!firstPart)
-		return false;
-	
-	for (int i = 0; i < empNumber; i++) {
-		if (employees[i] != c.employees[i]) {
-			return true;
-		}		
-	}
+	//bool equalsWithoutEmps = !(strcmp(name, c.name) == 0
+	//	&& strcmp(country, c.country) == 0
+	//	&& creationYear == c.creationYear
+	//	&& empNumber == c.empNumber);
 
-	return false;
+	//if (!equalsWithoutEmps)
+	//	return false;
+
+	//for (int i = 0; i < empNumber; i++)
+	//{
+	//	if (employees[i] != c.employees[i])
+	//	{
+	//		return true;
+	//	}
+	//}
+
+	//return false;
 }
 
 bool Company::operator<(const Company& c) const
@@ -295,32 +381,34 @@ bool Company::operator>=(const Company& c) const
 }
 
 
-ostream & operator<<(ostream & os, Company & c)
+ostream& operator<<(ostream& os, Company& c)
 {
-	cout << "Name: " << c.getname() << "\n"
-		<< "Country: " << c.getcountry() << "\n"
-		<< "CreationYear: " << c.getcreationYear() << "\n"
-		<< "EmployeesNumber: " << c.getempNumber() << endl;
+	os << "Name: " << c.getName() << "\n"
+		<< "Country: " << c.getCountry() << "\n"
+		<< "CreationYear: " << c.getCreationYear() << "\n"
+		<< "EmployeesNumber: " << c.getEmployeeNumber() << endl;
 
-	cout << "Employees:" << endl;
-	for (int i = 0; i < c.empNumber; i++) {
-		cout << c.employees[i] << endl;
+	os << "Employees:" << endl;
+	for (int i = 0; i < c.empNumber; i++)
+	{
+		os << c.employees[i] << endl;
 	}
 
 	return os;
 }
 
-const Employee& Company::operator[](int i)  const   // rvalue
+const Employee& Company::operator[](int i) const // rvalue
 {
-	if ((i >= 0) && (i < empNumber))
+	if (i >= 0 && i < empNumber)
 		return employees[i];
-	else
-		exit(-1);
+
+	exit(-1);
 }
 
-Employee& Company::operator[](int i) { 			// lvalue		
-	if ((i >= 0) && (i < empNumber))
+Employee& Company::operator[](int i) // lvalue		
+{
+	if (i >= 0 && i < empNumber)
 		return employees[i];
-	else
-		exit(-1);
+	
+	exit(-1);
 }

@@ -16,12 +16,12 @@ using std::istream;
 
 int main()
 {
-	/*Employee e("Tatyasha", "Myx", 19);
+	Employee e("Tatyasha", "Myx", 19);
 	cout << e << endl;
 
 	e.changeDepartment("No");
-	e.setposition("senior");
-	e.setage(23);
+	e.setPosition("senior");
+	e.setAge(23);
 	cout << e << endl;
 
 	Employee e1("Borechka", "Cherkas", 19, ".net", "senior", 5, 99999);
@@ -35,7 +35,7 @@ int main()
 	cout << (e < e1) << endl;
 
 	e = e1;
-	cout << e << endl;*/
+	cout << e << endl;
 
 	Employee em[4] = {
 		Employee("Vasya", "Ivanov", 25, ".net", "senior", 5, 99999),
@@ -48,10 +48,10 @@ int main()
 
 	Company c("DataArt", "USA", 2003, 4, em);
 
-	/*cout << c << endl;
+	cout << c << endl;
 
 	Company a("Epam", "Ukraine", 2005);
-	a.setemployees(4, em);
+	a.setEmployees(4, em);
 
 
 	cout << a << endl;
@@ -70,7 +70,7 @@ int main()
 
 	a[3] = a[2];
 
-	cout << a[3];*/
+	cout << a[3];
 
 	Employee emp("Ann", "Black", 35, "java", "middle", 10, 98462);
 

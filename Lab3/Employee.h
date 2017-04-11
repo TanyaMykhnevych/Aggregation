@@ -10,8 +10,8 @@ using std::istream;
 #pragma once
 class Employee
 {
-private:	
-	int id; 
+private:
+	int id;
 	char* name;
 	char* surname;
 	unsigned int age;
@@ -19,41 +19,59 @@ private:
 	char* position;
 	unsigned int yearsWorked;
 	double salary;
-	static int maxId;  // надо сделать статик, но почему-то не получается, исправить
+	static int maxId;
 
-	void setEmployee(const char* name, const char* surname, const int age, const char* department,
-		const char* position, const int yearsWorked, const double salary);
+	void setEmployee(const char* name,
+	                 const char* surname,
+	                 const int age,
+	                 const char* department,
+	                 const char* position,
+	                 const int yearsWorked,
+	                 const double salary);
 
 public:
 	Employee();
+	Employee(const Employee&);	//copy constr
 	Employee(const char* name, const char* surname, const int age);
-	Employee(const char* name, const char* surname, const int age, const char* department,
-		const char* position, const int yearsWorked, const double salary);
-	Employee(const Employee&);//copy constr
+	Employee(const char* name,
+	         const char* surname,
+	         const int age,
+	         const char* department,
+	         const char* position,
+	         const int yearsWorked,
+	         const double salary);
+
 	~Employee();
 
-	const int getid() const;
-	const char* getname() const;  // getter
-	const char* getsurname() const;  // getter
-	const int getage() const;  // getter
-	const char* getdepartment() const;  // getter
-	const char* getposition() const;  // getter
-	const int getyearsWorked() const;  // getter
-	const double getsalary() const;  // getter
+	int getId() const;
 
-	void setname(const char* name); //setter
-	void setsurname(const char* surname); //setter
-	void setage(const int age); //setter
-	void setdepartment(const char* department); //setter
-	void setposition(const char* position); //setter
-	void setyearsWorked(const int yearsWorked); //setter
-	void setsalary(const double salary); //setter
+	const char* getName() const; // getter
+	void setName(const char* name); //setter
 
-	void increaseSalary(double difference);
-	void decreaseSalary(double difference);
+	const char* getSurname() const; // getter
+	void setSurname(const char* surname); //setter
 
-	void changeDepartment(char* newDepartment);
-	void changePosition(char* newPosition);
+	int getAge() const; // getter
+	void setAge(const int age); //setter
+
+	const char* getDepartment() const; // getter
+	void setDepartment(const char* department); //setter
+
+	const char* getPosition() const; // getter
+	void setPosition(const char* position); //setter
+
+	int getYearsWorked() const; // getter
+	void setYearsWorked(const int yearsWorked); //setter
+
+	double getSalary() const; // getter
+	void setSalary(const double salary); //setter
+
+	void increaseSalary(const double difference);
+	void decreaseSalary(const double difference);
+
+	void changeDepartment(const char* newDepartment);
+
+	void changePosition(const char* newPosition);
 
 	const Employee& operator=(const Employee&);
 
@@ -63,9 +81,7 @@ public:
 	bool operator<(const Employee&) const;
 	bool operator<=(const Employee&) const;
 	bool operator>(const Employee&) const;
-	bool operator>=(const Employee&) const;	
+	bool operator>=(const Employee&) const;
 
 	friend ostream& operator<<(ostream& os, Employee& e);
-
 };
-

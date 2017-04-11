@@ -11,55 +11,85 @@ using std::istream;
 
 int Employee::maxId;
 
-void Employee::setEmployee(const char * name, const char * surname, const int age, const char * department, const char * position, const int yearsWorked, const double salary)
-{	
-	this->id = ++maxId;
-
+void Employee::setEmployee(const char* name,
+                           const char* surname,
+                           const int age,
+                           const char* department,
+                           const char* position,
+                           const int yearsWorked,
+                           const double salary)
+{
+	if (this->id != 0)
+	{
+		delete[] this->name;
+	}
 	this->name = new char[strlen(name) + 1];
 	strcpy_s(this->name, strlen(name) + 1, name);
 
+	if (this->id != 0)
+	{
+		delete[] this->surname;
+	}
 	this->surname = new char[strlen(surname) + 1];
 	strcpy_s(this->surname, strlen(surname) + 1, surname);
 
 	this->age = age;
 
+	if (this->id != 0)
+	{
+		delete[] this->department;
+	}
 	this->department = new char[strlen(department) + 1];
 	strcpy_s(this->department, strlen(department) + 1, department);
 
+	if (this->id != 0)
+	{
+		delete[] this->position;
+	}
 	this->position = new char[strlen(position) + 1];
 	strcpy_s(this->position, strlen(position) + 1, position);
 
 	this->yearsWorked = yearsWorked;
+
 	this->salary = salary;
+
+	if (this->id == 0)
+	{
+		this->id = ++maxId;
+	}
 }
 
 Employee::Employee()
 {
-	id = ++maxId;
-	age = yearsWorked = 0;
-	salary = 0;
-	name = "";
-	surname = "";		
-	department = "";
-	position = "";
+	id = 0;
+	setEmployee("", "", 0, "", "", 0, 0);
 }
 
-Employee::Employee(const char * name, const char * surname, const int age)
+Employee::Employee(const char* name,
+                   const char* surname,
+                   const int age)
 {
+	id = 0;
 	setEmployee(name, surname, age, "", "", 0, 0);
 }
 
-Employee::Employee(const char * name, const char * surname, const int age,
-	const char * department, const char * position, const int yearsWorked, const double salary)
+Employee::Employee(const char* name,
+                   const char* surname,
+                   const int age,
+                   const char* department,
+                   const char* position,
+                   const int yearsWorked,
+                   const double salary)
 {
+	id = 0;
 	setEmployee(name, surname, age, department, position, yearsWorked, salary);
 }
 
 Employee::Employee(const Employee& e)
 {
+	id = 0;
 	setEmployee(e.name, e.surname, e.age, e.department, e.position, e.yearsWorked, e.salary);
 }
-
 
 Employee::~Employee()
 {
@@ -67,175 +97,188 @@ Employee::~Employee()
 	delete[] surname;
 	delete[] department;
 	delete[] position;
-	maxId--;
 }
 
-const int Employee::getid() const
+int Employee::getId() const
 {
 	return id;
 }
 
-const char * Employee::getname() const
+const char* Employee::getName() const
 {
 	return name;
 }
 
-const char * Employee::getsurname() const
+void Employee::setName(const char* newName)
+{
+	delete[] this->name;
+
+	this->name = new char[strlen(newName) + 1];
+	strcpy_s(this->name, strlen(newName) + 1, newName);
+}
+
+const char* Employee::getSurname() const
 {
 	return surname;
 }
 
-const int Employee::getage() const
+void Employee::setSurname(const char* newSurname)
+{
+	delete[] this->surname;
+
+	this->surname = new char[strlen(newSurname) + 1];
+	strcpy_s(this->surname, strlen(newSurname) + 1, newSurname);
+}
+
+int Employee::getAge() const
 {
 	return age;
 }
 
-const char * Employee::getdepartment() const
+void Employee::setAge(const int newAge)
 {
-	return department;
-}
-
-const char * Employee::getposition() const
-{
-	return position;
-}
-
-const int Employee::getyearsWorked() const
-{
-	return yearsWorked;
-}
-
-const double Employee::getsalary() const
-{
-	return salary;
-}
-
-void Employee::setname(const char * nam)
-{
-	char* temp;
-	temp = new char[strlen(nam) + 1];
-	strcpy_s(temp, strlen(nam) + 1, nam);
-	delete[] name;
-	name = temp;
-}
-
-void Employee::setsurname(const char * surnam)
-{
-	char* temp;
-	temp = new char[strlen(surnam) + 1];
-	strcpy_s(temp, strlen(surnam) + 1, surnam);
-	delete[] surname;
-	surname = temp;
-}
-
-void Employee::setage(const int a)
-{
-	if (a > 18 && a < 90) {
-		this->age = a;
+	if (newAge >= 18 && newAge < 90)
+	{
+		this->age = newAge;
 	}
-	else {
+	else
+	{
 		cout << "Invalid value age/n" << endl;
 	}
 }
 
-void Employee::setdepartment(const char * depart)
+const char* Employee::getDepartment() const
 {
-	char* temp;
-	temp = new char[strlen(depart) + 1];
-	strcpy_s(temp, strlen(depart) + 1, depart);
-	delete[] department;
-	department = temp;
+	return department;
 }
 
-void Employee::setposition(const char * pos)
+void Employee::setDepartment(const char* newDepartment)
 {
-	char* temp;
-	temp = new char[strlen(pos) + 1];
-	strcpy_s(temp, strlen(pos) + 1, pos);
-	delete[] position;
-	position = temp;
+	delete[] this->department;
+
+	this->department = new char[strlen(newDepartment) + 1];
+	strcpy_s(this->department, strlen(newDepartment) + 1, newDepartment);
 }
 
-void Employee::setyearsWorked(const int years)
+const char* Employee::getPosition() const
 {
-	if (years > 0 && years < 80) {
-		this->yearsWorked = years;
+	return position;
+}
+
+void Employee::setPosition(const char* newPosition)
+{
+	delete[] this->position;
+
+	this->position = new char[strlen(newPosition) + 1];
+	strcpy_s(this->position, strlen(newPosition) + 1, newPosition);
+}
+
+int Employee::getYearsWorked() const
+{
+	return yearsWorked;
+}
+
+void Employee::setYearsWorked(const int newWorkedYears)
+{
+	if (newWorkedYears >= 0 && newWorkedYears < 80)
+	{
+		this->yearsWorked = newWorkedYears;
 	}
-	else {
+	else
+	{
 		cout << "Invalid value yearsWorked\n" << endl;
 	}
 }
 
-void Employee::setsalary(const double sal)
+double Employee::getSalary() const
 {
-	if (sal > 0) {
-		this->salary = sal;
+	return salary;
+}
+
+void Employee::setSalary(const double newSalary)
+{
+	if (newSalary >= 0)
+	{
+		this->salary = newSalary;
 	}
-	else {
+	else
+	{
 		cout << "Invalid value salary\n" << endl;
 	}
 }
 
 void Employee::increaseSalary(double difference)
 {
-	salary += difference;
+	if (difference > 0)
+	{
+		salary += difference;
+	}
+	else
+	{
+		cout << "Invalid increase difference: " << difference << "\n" << endl;
+	}
 }
 
 void Employee::decreaseSalary(double difference)
 {
-	if (difference > salary) {
+	if (salary > difference)
+	{
+		salary -= difference;
+	}
+	else
+	{
 		salary = 0;
 	}
-	salary -= difference;
 }
 
-void Employee::changeDepartment(char * newDepartment)
+void Employee::changeDepartment(const char* newDepartment)
 {
-	char* temp;
-	temp = new char[strlen(newDepartment) + 1];
-	strcpy_s(temp, strlen(newDepartment) + 1, newDepartment);
-	delete[] department;
-	department = temp;
+	delete[] this->department;
+
+	this->department = new char[strlen(newDepartment) + 1];
+	strcpy_s(this->department, strlen(newDepartment) + 1, newDepartment);
 }
 
-void Employee::changePosition(char * newPosition)
+void Employee::changePosition(const char* newPosition)
 {
-	char* temp;
-	temp = new char[strlen(newPosition) + 1];
-	strcpy_s(temp, strlen(newPosition) + 1, newPosition);
-	delete[] position;
-	position = temp;
+	delete[] this->position;
+
+	this->position = new char[strlen(newPosition) + 1];
+	strcpy_s(this->position, strlen(newPosition) + 1, newPosition);
 }
 
-const Employee & Employee::operator=(const Employee& e)
+const Employee& Employee::operator=(const Employee& e)
 {
-	char* nam; char* sur;
-	char* dep; char* pos;
-	if (this != &e) {
-		nam = new char[strlen(e.name) + 1];
-		sur = new char[strlen(e.surname) + 1];
-		dep = new char[strlen(e.department) + 1];
-		pos = new char[strlen(e.position) + 1];
+	char* name;
+	char* surname;
+	char* department;
+	char* position;
 
-		strcpy_s(nam, strlen(e.name) + 1, e.name);
-		strcpy_s(sur, strlen(e.surname) + 1, e.surname);
-		strcpy_s(dep, strlen(e.department) + 1, e.department);
-		strcpy_s(pos, strlen(e.position) + 1, e.position);
+	if (this != &e)
+	{
+		name = new char[strlen(e.name) + 1];
+		surname = new char[strlen(e.surname) + 1];
+		department = new char[strlen(e.department) + 1];
+		position = new char[strlen(e.position) + 1];
 
-		if(this->name != "")
-			delete[] this->name;
-		if (this->surname != "")
-			delete[] this->surname;
-		if (this->department != "")
-			delete[] this->department;
-		if (this->position != "")
-			delete[] this->position;
+		strcpy_s(name, strlen(e.name) + 1, e.name);
+		strcpy_s(surname, strlen(e.surname) + 1, e.surname);
+		strcpy_s(department, strlen(e.department) + 1, e.department);
+		strcpy_s(position, strlen(e.position) + 1, e.position);
 
-		setEmployee(nam, sur, e.age, dep, pos, e.yearsWorked, e.salary);
-		
-		return *this;
+		this->id = e.id;
+		setEmployee(name, surname, e.age, department, position, e.yearsWorked, e.salary);
+
+		delete[] name;
+		delete[] surname;
+		delete[] department;
+		delete[] position;
 	}
-	else cout << "Avoid copying to itself" << endl;
+	else
+	{
+		cout << "Avoid copying to itself" << endl;
+	}
+
 	return *this;
 }
 
@@ -252,13 +295,15 @@ bool Employee::operator==(const Employee& e) const
 
 bool Employee::operator!=(const Employee& e) const
 {
-	return !((strcmp(name, e.name) == 0)
-		&& (strcmp(surname, e.surname) == 0)
-		&& (strcmp(department, e.department) == 0)
-		&& (strcmp(position, e.position) == 0)
-		&& (age == e.age)
-		&& (yearsWorked == e.yearsWorked)
-		&& (salary == e.salary));
+	return !(*this == e);
+
+	//return !((strcmp(name, e.name) == 0)
+	//	&& (strcmp(surname, e.surname) == 0)
+	//	&& (strcmp(department, e.department) == 0)
+	//	&& (strcmp(position, e.position) == 0)
+	//	&& (age == e.age)
+	//	&& (yearsWorked == e.yearsWorked)
+	//	&& (salary == e.salary));
 }
 
 bool Employee::operator<(const Employee& e) const
@@ -281,16 +326,16 @@ bool Employee::operator>=(const Employee& e) const
 	return salary >= e.salary;
 }
 
-ostream & operator<<(ostream & os, Employee & e)
-{	
-	cout << "Id: " << e.id << "\n"
-		<< "Name: " << e.getname() << "\n"		
-		<< "Surname: " << e.getsurname() << "\n"
-		<< "Age: "<< e.getage() << "\n"
-		<< "Position: " << e.getposition() << "\n"
-		<< "Department: "<< e.getdepartment() << "\n"
-		<< "YearsWorked: " << e.getyearsWorked() << "\n"
-		<< "Salary: " << e.getsalary() << endl;
+ostream& operator<<(ostream& os, Employee& e)
+{
+	os << "Id: " << e.id << "\n"
+		<< "Name: " << e.getName() << "\n"
+		<< "Surname: " << e.getSurname() << "\n"
+		<< "Age: " << e.getAge() << "\n"
+		<< "Position: " << e.getPosition() << "\n"
+		<< "Department: " << e.getDepartment() << "\n"
+		<< "YearsWorked: " << e.getYearsWorked() << "\n"
+		<< "Salary: " << e.getSalary() << endl;
 
 	return os;
 }

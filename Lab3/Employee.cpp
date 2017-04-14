@@ -87,7 +87,7 @@ Employee::Employee(const char* name,
 
 Employee::Employee(const Employee& e)
 {
-	id = 0;
+	this->id = e.id;
 	setEmployee(e.name, e.surname, e.age, e.department, e.position, e.yearsWorked, e.salary);
 }
 
@@ -329,13 +329,13 @@ bool Employee::operator>=(const Employee& e) const
 ostream& operator<<(ostream& os, Employee& e)
 {
 	os << "Id: " << e.id << "\n"
-		<< "Name: " << e.getName() << "\n"
-		<< "Surname: " << e.getSurname() << "\n"
-		<< "Age: " << e.getAge() << "\n"
-		<< "Position: " << e.getPosition() << "\n"
-		<< "Department: " << e.getDepartment() << "\n"
-		<< "YearsWorked: " << e.getYearsWorked() << "\n"
-		<< "Salary: " << e.getSalary() << endl;
+		<< "Name: " << e.name << "\n"
+		<< "Surname: " << e.surname << "\n"
+		<< "Age: " << e.age << "\n"
+		<< "Position: " << e.position << "\n"
+		<< "Department: " << e.department << "\n"
+		<< "YearsWorked: " << e.yearsWorked << "\n"
+		<< "Salary: " << e.salary << endl;
 
 	return os;
 }

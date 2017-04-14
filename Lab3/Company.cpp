@@ -249,7 +249,7 @@ void Company::sortEmpsBySurname() const
 
 			if (result > 0)
 			{
-				Employee& tempEmp = employees[i];
+				Employee tempEmp = employees[i];
 				employees[i] = employees[j];
 				employees[j] = tempEmp;
 
@@ -268,7 +268,7 @@ void Company::sortEmpsBySalary() const
 		{
 			if (employees[i].getSalary() > employees[j].getSalary())
 			{
-				Employee& tempEmp = employees[i];
+				Employee tempEmp = employees[i];
 				employees[i] = employees[j];
 				employees[j] = tempEmp;
 
